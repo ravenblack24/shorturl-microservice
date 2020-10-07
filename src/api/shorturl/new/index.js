@@ -1,16 +1,12 @@
 const dns = require('dns');
 
-const shortenURL = (req, res) => {
+const processURL = (req, res) => {
+    const reqURL = req.body.urlToShorten;
+    const validURLFormat = /^https?\:\/{2}/;
 
-    const requestURL = req.body.urlToShorten;
-    const validStartURLFormat = /^https?\:\/{2}/;
+    if(verifyURLFormat(validURLFormat, reqURL, res)) {
 
-    if(!validStartURLFormat.test(requestURL)) {
-        res.json({"error": "invalid URL"});   
-    }
-    else {
-
-        var domainURL = requestURL.replace(validStartURLFormat, '');
+        var domainURL = reqURL.replace(validURLFormat, '');      
         const urlRoutes = /\//;
     
         if(urlRoutes.test(domainURL)) {
@@ -19,12 +15,20 @@ const shortenURL = (req, res) => {
     
         dns.lookup(domainURL, (err) => {
             if(err) {
-                res.json({"error": "invalid URL"});     
+                return invalidResponse(res);     
             }  else {
-                res.json({"original_url": requestURL, "short_url": "tbc"});            
+                res.json({"original_url": reqURL, "short_url": "tbc"});            
             }
         });
     }
 }
 
-module.exports = {shortenURL}
+const verifyURLFormat = (validURLFormat, url, res) => {
+    return (!validURLFormat.test(url)) ? invalidResponse(res) : true;   
+}
+
+const invalidResponse = (res) => {
+    res.json({"error": "invalid URL"});  
+}
+
+module.exports = {processURL}

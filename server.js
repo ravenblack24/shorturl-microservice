@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
 const urlShortener = require('./src/api/shorturl/new/index');
 
@@ -8,11 +7,11 @@ app.get("/", (req, res) => {
 })
 
 app.use(express.static(__dirname+"/public"));
-// Mount body-parser middleware
-app.use(bodyParser.urlencoded({extended:false}));
+// Parse URL-encoded bodies
+app.use(express.urlencoded({extended: false})); 
 
 app.post("/api/shorturl/new", (req, res) => {
-    urlShortener.shortenURL(req, res);
+    urlShortener.processURL(req, res);
 })
 
 // Listen for requests
