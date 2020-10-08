@@ -1,16 +1,15 @@
-const mongoose = require('mongoose');
+// create model
+var ShortURL = require('../models/url');
 
-const URL = require(__dirname+'/../models/URL');
-
+// save new record
 const createAndSaveURL = (url, done) => {
+    
+    var newURL = new ShortURL(url);
 
-    var newURL = new URL(url);
-
-    newURL.save((err, data) => {
+    newURL.save((err, newURL) => {
         if(err) return console.error(err);
         done(null, newURL);
     })
-
 }
 
-module.exports = {createAndSaveURL}
+module.exports = {createAndSaveURL};

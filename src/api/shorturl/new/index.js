@@ -13,7 +13,7 @@ const processURL = (req, res) => {
                 return invalidResponse(res);     
             }  else {
 
-                const saveToDB = require('../../../models/url');
+                const saveToDB = require('../../../controllers/shortURL');
                 saveToDB.createAndSaveURL({"original_url": reqURL}, () => {
                     console.log("ShortURL saved");
                     // return response
