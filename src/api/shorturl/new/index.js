@@ -1,18 +1,13 @@
 const dns = require('dns');
 
 const processURL = (req, res) => {
+
     const reqURL = req.body.urlToShorten;
-    const validURLFormat = /^https?\:\/{2}/;
 
-    if(verifyURLFormat(validURLFormat, reqURL, res)) {
+    let domainURL = verifyURLFormat(reqURL, res);
+    domainURL = getHostName(domainURL, res);
 
-        var domainURL = reqURL.replace(validURLFormat, '');      
-        const urlRoutes = /\//;
-    
-        if(urlRoutes.test(domainURL)) {
-            domainURL = domainURL.substring(0, domainURL.indexOf('/'));
-        }
-    
+    if(domainURL) {    
         dns.lookup(domainURL, (err) => {
             if(err) {
                 return invalidResponse(res);     
@@ -23,8 +18,28 @@ const processURL = (req, res) => {
     }
 }
 
-const verifyURLFormat = (validURLFormat, url, res) => {
-    return (!validURLFormat.test(url)) ? invalidResponse(res) : true;   
+const verifyURLFormat = (url, res) => {
+    
+    const validURLFormat = /^https?\:\/{2}/;
+
+    if (!validURLFormat.test(url)) {
+        return invalidResponse(res);
+    }
+    
+    return url.replace(validURLFormat, '');
+}
+
+const getHostName = (url, res) => {
+
+    if(url) {
+        const urlRoutes = /\//;
+
+        if(urlRoutes.test(url)) {
+            return url.substring(0, domainURL.indexOf('/'));
+        }
+
+        return url;
+    }
 }
 
 const invalidResponse = (res) => {
