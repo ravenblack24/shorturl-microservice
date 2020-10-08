@@ -12,14 +12,21 @@ const processURL = (req, res) => {
             if(err) {
                 return invalidResponse(res);     
             }  else {
-                res.json({"original_url": reqURL, "short_url": "tbc"});            
+
+                const saveToDB = require('../../../models/url');
+                saveToDB.createAndSaveURL({"original_url": reqURL}, () => {
+                    console.log("ShortURL saved");
+                    // return response
+                    // res.json({"original_url": reqURL, "short_url": "tbc"}); 
+                });
+                           
             }
         });
     }
 }
 
 const verifyURLFormat = (url, res) => {
-    
+
     const validURLFormat = /^https?\:\/{2}/;
 
     if (!validURLFormat.test(url)) {
@@ -44,6 +51,10 @@ const getHostName = (url, res) => {
 
 const invalidResponse = (res) => {
     res.json({"error": "invalid URL"});  
+}
+
+const saveURL = (url, res) => {
+    saveToDB.createAndSaveURL(url);
 }
 
 module.exports = {processURL}
