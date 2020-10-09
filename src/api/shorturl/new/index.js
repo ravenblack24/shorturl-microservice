@@ -11,15 +11,8 @@ const processURL = (req, res) => {
         dns.lookup(domainURL, (err) => {
             if(err) {
                 return invalidResponse(res);     
-            }  else {
-
-                const saveToDB = require('../../../controllers/shortURL');
-                saveToDB.createAndSaveURL({"original_url": reqURL}, () => {
-                    console.log("ShortURL saved");
-                    // return response
-                    // res.json({"original_url": reqURL, "short_url": "tbc"}); 
-                });
-                           
+            } else {
+                saveURL(reqURL, res);                           
             }
         });
     }
@@ -54,7 +47,8 @@ const invalidResponse = (res) => {
 }
 
 const saveURL = (url, res) => {
-    saveToDB.createAndSaveURL(url);
+    const saveToDB = require('../../../controllers/shortURL');
+    saveToDB.createAndSaveURL({"original_url": url}, res); 
 }
 
 module.exports = {processURL}

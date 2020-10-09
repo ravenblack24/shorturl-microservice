@@ -2,15 +2,22 @@
 var ShortURL = require('../models/url');
 
 // save new record
-const createAndSaveURL = (url, done) => {
+const createAndSaveURL = (url, res) => {
 
-    const newURL = new ShortURL(url);
-    
+    const newURL = new ShortURL(url);  
     console.log("newurl: ", newURL);
     
-    newURL.save((err, newURL) => {
+    newURL.save((err, data) => {
         if(err) return console.error(err);
-        done(null, newURL);
+        res.send({"original_url": data.original_url, "short_url": data.short_url});
+    });
+}
+
+const findByShortURL = (shortURL, done) => {
+
+    ShortURL.findOne({short_url: shortURL}, (err, data) => {
+        if(err) return console.log(err);
+        done(null, data);
     })
 }
 
