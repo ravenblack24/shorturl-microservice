@@ -13,12 +13,4 @@ const createAndSaveURL = (url, res) => {
     });
 }
 
-const findByShortURL = (shortURL, done) => {
-
-    ShortURL.findOne({short_url: shortURL}, (err, data) => {
-        if(err) return console.log(err);
-        done(null, data);
-    })
-}
-
 module.exports = {createAndSaveURL};
