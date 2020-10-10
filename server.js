@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const urlLookup = require('./src/api/shorturl/index');
-const urlShortener = require('./src/api/shorturl/new/index');
+const getURL = require('./src/api/shorturl/index');
+const shortenURL = require('./src/api/shorturl/new/index');
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname+'/views/index.html');
@@ -12,11 +12,11 @@ app.use(express.static(__dirname+"/public"));
 app.use(express.urlencoded({extended: false})); 
 
 app.get("/api/shorturl/:shortURL?", (req, res) => {
-    urlLookup.getShortURL(req, res);
+    getURL.getOriginalURL(req, res);
 });
 
 app.post("/api/shorturl/new", (req, res) => {
-    urlShortener.processURL(req, res);
+    shortenURL.processURL(req, res);
 });
 
 

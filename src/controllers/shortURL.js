@@ -5,7 +5,6 @@ var ShortURL = require('../models/url');
 const createAndSaveURL = (url, res) => {
 
     const newURL = new ShortURL(url);  
-    console.log("newurl: ", newURL);
     
     newURL.save((err, data) => {
         if(err) return console.error(err);
@@ -23,7 +22,6 @@ const findOneByShortURL = (shortURL, res) => {
         if(!data) {
             return res.json({"error": "No short URL found for the given input"}) 
         }
-        console.log("item found");
         res.redirect(data.original_url);  
     })
 }

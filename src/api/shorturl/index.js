@@ -1,12 +1,3 @@
-const getShortURL = (req, res) => {
-    const request = req.params.shortURL;
+const {getOriginalURL} = require('./getOriginalURL');
 
-    if(!request) {
-        return res.json({"error": "No short URL provided"});  
-    }  
-    
-    const db = require('../../controllers/shortURL');
-    db.findOneByShortURL(request, res);
-}
-
-module.exports = {getShortURL}
+module.exports = {getOriginalURL}
