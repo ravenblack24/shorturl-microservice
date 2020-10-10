@@ -11,7 +11,7 @@ app.use(express.static(__dirname+"/public"));
 // Parse URL-encoded bodies
 app.use(express.urlencoded({extended: false})); 
 
-app.get("/api/shorturl/:shortURL", (req, res) => {
+app.get("/api/shorturl/:shortURL?", (req, res) => {
     urlLookup.getShortURL(req, res);
 });
 
