@@ -1,5 +1,5 @@
 // Create model
-var ShortURL = require('../models/url');
+var {ShortURL} = require('../models/url');
 
 /**
  * Save a URL to the database
