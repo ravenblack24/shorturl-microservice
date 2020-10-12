@@ -41,6 +41,31 @@ header {
     padding-bottom: 2.4em;
 }
 
+.section__container__content,
+label {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+input {
+    padding: .25em;
+    font-size: 1.25rem;
+    margin-bottom: .5em;
+}
+
+button {
+    height: 1.6em;
+    font-size: 1.5rem;
+    background-color: white;
+    text-transform: lowercase;
+    font-style:italic;
+    padding: 0 1em;
+    font-weight: 700;
+    border: 1px solid black;
+}
+
+
+
 .section__container__title {
     font-size: 3rem;
     font-weight: 700;

@@ -2,9 +2,11 @@
 const express = require('express');
 const app = express();
 const URL = require('./src/api/services/index');
+const cors = require('cors');
 
 // Serve static resources from public dir
 app.use(express.static(__dirname+"/public"));
+app.use(cors());
 
 // Parse URL-encoded bodies
 app.use(express.urlencoded({extended: false})); 
