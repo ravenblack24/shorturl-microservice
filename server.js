@@ -1,24 +1,40 @@
+// Init project
 const express = require('express');
 const app = express();
-const getURL = require('./src/api/shorturl/index');
-const shortenURL = require('./src/api/shorturl/new/index');
+const URL = require('./src/api/services/index');
 
+// Serve static resources from public dir
+app.use(express.static(__dirname+"/public"));
+
+// Parse URL-encoded bodies
+app.use(express.urlencoded({extended: false})); 
+
+// Route for index page
 app.get("/", (req, res) => {
     res.sendFile(__dirname+'/views/index.html');
 });
 
-app.use(express.static(__dirname+"/public"));
-// Parse URL-encoded bodies
-app.use(express.urlencoded({extended: false})); 
-
+/**
+ * Process user input and return Object
+ * 
+ * @param {String} shortURL a shorturl code
+ * 
+ * @returns {Object} Object containing error key value pair or res.redirect to matching original_url
+ */
 app.get("/api/shorturl/:shortURL?", (req, res) => {
-    getURL.getOriginalURL(req, res);
+    URL.getOriginalURL(req, res);
 });
 
+/**
+ * Submit url for shorturl conversion
+ * 
+ * @param {String} urlToShorten a url in the form https://www.something.com
+ * 
+ * @returns {Object} Object containing error key value pair or original_url & short_url key value pair
+ */
 app.post("/api/shorturl/new", (req, res) => {
-    shortenURL.processURL(req, res);
+    URL.processURL(req, res);
 });
-
 
 // Listen for requests
 var listener = app.listen(process.env.PORT, () => {

@@ -1,5 +1,5 @@
 // create model
-var ShortURL = require('../models/url');
+var ShortURL = require('../models/URL');
 
 // save new record
 const createAndSaveURL = (url, res) => {
