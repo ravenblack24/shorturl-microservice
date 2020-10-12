@@ -1,5 +1,5 @@
 // Create model
-var {ShortURL} = require('../models/url');
+var ShortURL = require('../models/url');
 
 /**
  * Save a URL to the database
@@ -13,7 +13,7 @@ var {ShortURL} = require('../models/url');
  */
 const createAndSaveURL = (original_url, res) => {
 
-    const newURL = new ShortURL(original_url);  
+    const newURL = ShortURL(original_url);  
     
     newURL.save((err, data) => {
         if(err) throw new Error(err);
