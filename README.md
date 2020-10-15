@@ -11,7 +11,7 @@
 
 
 ## Status
-Project is complete and an [interactive demo is available here](https://salty-harbor-79927.herokuapp.com/).
+An [interactive demo is available here](https://salty-harbor-79927.herokuapp.com/).
 
 ## User stories:
 
@@ -21,7 +21,7 @@ HINT: to be sure that the submitted url points to a valid site you can use the f
 3. When I visit the shortened URL, it will redirect me to my original link.
 
 ## Example lookup:
-[/api/shorturl/JeymQzbTU](https://salty-harbor-79927.herokuapp.com//api/shorturl/JeymQzbTU) should redirect to: [https://imkp.co.uk](https://imkp.co.uk)
+[/api/shorturl/JeymQzbTU](https://salty-harbor-79927.herokuapp.com/api/shorturl/JeymQzbTU) should redirect to: [https://imkp.co.uk](https://imkp.co.uk)
 
 ## Technologies
 * express.js, node.js, mongoose.js, mongodb, html, css
